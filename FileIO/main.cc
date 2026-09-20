@@ -1,6 +1,4 @@
 /*
- * io_uring_reference_engine.cpp
- *
  * High-Performance Reference & Learning Engine for io_uring Architecture.
  *
  * Features:
@@ -9,12 +7,6 @@
  *   - Explicit Request State Machine with partial I/O resubmission handling
  *   - Flexible Workload Drivers (Seq/Rand Read/Write, File Copy)
  *
- * Build:
- *   g++ -std=c++20 -O3 -march=native -pthread \
- *       io_uring_reference_engine.cpp -luring -o io_uring_engine
- *
- * Run:
- *   ./io_uring_engine [file] [workload_type] [workers] [ops]
  *   Workload Types: seq_read, seq_write, rand_read, rand_write, copy
  */
 
@@ -148,6 +140,8 @@ struct alignas(64) WorkerContext {
     uint64_t total_errors = 0;
 };
 
+
+
 // Lock-Free Index Free-List (Pre-allocated Slot Manager)
 class FreeListAllocator {
 private:
@@ -178,6 +172,7 @@ public:
 };
 
 
+
 struct HardwareCapabilities {
     bool supports_fixed_buffers = false;
     bool supports_fixed_files = false;
@@ -204,7 +199,11 @@ struct HardwareCapabilities {
     }
 };
 
+
+
 static HardwareCapabilities g_caps;
+
+
 
 static bool init_worker(WorkerContext& ctx) {
     io_uring_params params{};
